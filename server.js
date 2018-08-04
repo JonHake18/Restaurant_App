@@ -29,23 +29,32 @@ var reservations = [
   }
 ];
 
-app.get("/", function(req, res) {
+var waitlist = [
+  {
+    uniqueID: "jonesfamily",
+    name: "Jones Family",
+    phoneNumber: "555-692-4372",
+    email: "fake-email@gmail.com"
+  }
+];
+
+app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/reserve", function(req, res) {
+app.get("/reserve", function (req, res) {
   res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
-app.get("/add", function(req, res) {
-    res.sendFile(path.join(__dirname, "add.html"));
-  });
+app.get("/add", function (req, res) {
+  res.sendFile(path.join(__dirname, "add.html"));
+});
 
-app.get("/api/reservations", function(req, res) {
+app.get("/api/reservations", function (req, res) {
   return res.json(reservations);
 });
 
-app.get("/api/characters/:reservation", function(req, res) {
+app.get("/api/characters/:reservation", function (req, res) {
   var chosen = req.params.reservation;
 
   console.log(chosen);
@@ -59,19 +68,23 @@ app.get("/api/characters/:reservation", function(req, res) {
   return res.json(false);
 });
 
-app.post("/api/reservations", function(req, res) {
-  
+app.post("/api/reservations", function (req, res) {
+
   var newReservation = req.body;
 
   newReservation.uniqueID = newReservation.name.replace(/\s+/g, "").toLowerCase();
 
   console.log(newReservation);
+  if (reservations.length < 5) {
+    reservations.push(newReservation);
+  }
 
-  reservations.push(newReservation);
-
+  else {
+    waitlist.push(newReservation);
+  }
   res.json(newReservation);
 });
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("App listening on PORT " + PORT);
 });
