@@ -31,7 +31,11 @@
         </div>
             <div class="panel-body">
                 <form role="form">
-    
+                <div class="form-group">
+                    <label for="unique-id">Unique ID</label>
+                    <input type="text" class="form-control" id="uniqueID">
+                </div>
+
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name">
@@ -39,17 +43,12 @@
     
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="text" class="form-control" id="phone">
+                    <input type="text" class="form-control" id="phoneNumber">
                 </div>
     
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" class="form-control" id="email">
-                </div>
-    
-                <div class="form-group">
-                    <label for="unique-id">Unique ID</label>
-                    <input type="text" class="form-control" id="unique-id">
                 </div>
     
                 </form>
@@ -68,10 +67,10 @@
       event.preventDefault();
 
       var newReservation = {
+        uniqueID: $("#uniqueID").val().trim(),
         name: $("#name").val().trim(),
         phone: $("#phone").val().trim(),
-        email: $("#email").val().trim(),
-        uniqueID: $("#unique-id").val().trim()
+        email: $("#email").val().trim()
       };
 
       
