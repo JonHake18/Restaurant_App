@@ -5,6 +5,9 @@
         <title>Table Reservation</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     </head>
     <body>
         <div class="container">
@@ -49,7 +52,7 @@
                             <div class="card-header">
                                 Waiting List
                             </div>
-                            <div class="card-body" id="#waitlistContent">
+                            <div class="card-body" id="waitlistContent">
     
                             </div>
                         </div>
@@ -64,7 +67,7 @@
                         console.log("------------------------------------");
                         console.log("URL: " + URL + "/api/reservations");
                         console.log("------------------------------------");
-                        console.log(tableData);
+                        console.log(reservations);
                         console.log("------------------------------------");
                         for (let i=0; i < reservations.length; i++){
                             let tableSection = $("<div>");
@@ -72,14 +75,14 @@
                             tableSection.attr('id', 'tableWell-' + i+1)
                             $('#tableContent').append(tableSection);
                             let tableNumber = i + 1;
-                            $("#tableWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + reservations[i].uniqueID + "</h2>");
+                            $("#tableWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + reservations[i].uniqueID + "</h2><button type='button' id='clear' class='btn btn-dark'><i class='fa fa-trash' style='font-size:36px'></i></button>");
                         }
                     });
             }
         
             function waitlistDisplay(){
                 let URL = window.location.origin;
-                $.ajax({url: currentURL + "/api/reservations", method: "GET"})
+                $.ajax({url: URL + "/api/reservations", method: "GET"})
                     .done(function(waitlist) {
                         console.log("------------------------------------");
                         console.log("URL: " + URL + "/api/reservations");
@@ -92,7 +95,7 @@
                             waitlistSection.attr('id', 'waitlistWell-' + i+1)
                             $('#waitlistContent').append(waitlistSection);
                             let tableNumber = i + 1;
-                            $("#waitlistWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + waitlist[i].uniqueID + "</h2>");
+                            $("#waitlistWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + waitlist[i].uniqueID + "</h2><button type='button' id='clear' class='btn btn-dark'><i class='fa fa-trash' style='font-size:36px'></i></button>");
                         }
                     });
             }
