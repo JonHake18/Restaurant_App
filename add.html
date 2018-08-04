@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3 text-center">
-                                    <a href="/reserve.html"><button type="button" class="btn btn-danger text-center"><span class="fa fa-th-list"></span></i> Make Reservation</button></a>
+                                    <a href="/reserve"><button type="button" class="btn btn-danger text-center"><span class="fa fa-th-list"></span></i> Make Reservation</button></a>
                                 </div>
                                 <div class="col-sm-3 text-center">
                                     <a href="/"><button type="button" class="btn btn-danger "><i class="fa fa-home" style="font-size:25px"></i></button></a>
@@ -62,7 +62,7 @@
                 $.ajax({url: URL + "/api/reservations", method: "GET"})
                     .done(function(reservations) {
                         console.log("------------------------------------");
-                        console.log("URL: " + currentURL + "/api/reservations");
+                        console.log("URL: " + URL + "/api/reservations");
                         console.log("------------------------------------");
                         console.log(tableData);
                         console.log("------------------------------------");
@@ -82,7 +82,7 @@
                 $.ajax({url: currentURL + "/api/reservations", method: "GET"})
                     .done(function(waitlist) {
                         console.log("------------------------------------");
-                        console.log("URL: " + currentURL + "/api/reservations");
+                        console.log("URL: " + URL + "/api/reservations");
                         console.log("------------------------------------");
                         console.log(waitlist);
                         console.log("------------------------------------")
