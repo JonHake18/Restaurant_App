@@ -18,10 +18,10 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3 text-center">
-                                    <a href="/reserve"><button type="button" class="btn btn-danger text-center">Make Reservation</button></a>
+                                    <a href="/reserve.html"><button type="button" class="btn btn-danger text-center"><span class="fa fa-th-list"></span></i> Make Reservation</button></a>
                                 </div>
                                 <div class="col-sm-3 text-center">
-                                    <a href="/"><button type="button" class="btn btn-danger "><i class="fa fa-home" style="font-size:30px"></i></button></a>
+                                    <a href="/"><button type="button" class="btn btn-danger "><i class="fa fa-home" style="font-size:25px"></i></button></a>
                                 </div>
                                 <div class="col-sm-3"></div>
                             </div>
@@ -36,7 +36,7 @@
                         <div class="card-header">
                             Current Reservations
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id="tableContent">
 
                         </div>
                     </div>
@@ -49,12 +49,65 @@
                             <div class="card-header">
                                 Waiting List
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" id="#waitlistContent">
     
                             </div>
                         </div>
                     </div>
                 </div>
         </div>
-    </body>
-</html>
+        <script type="text/javascript">
+        function tableDisplay(){
+            let URL = window.location.origin;
+                $.ajax({url: URL + "/api/reservations", method: "GET"})
+                    .done(function(reservations) {
+                        console.log("------------------------------------");
+                        console.log("URL: " + currentURL + "/api/reservations");
+                        console.log("------------------------------------");
+                        console.log(tableData);
+                        console.log("------------------------------------");
+                        for (let i=0; i < reservations.length; i++){
+                            let tableSection = $("<div>");
+                            tableSection.addClass('well');
+                            tableSection.attr('id', 'tableWell-' + i+1)
+                            $('#tableContent').append(tableSection);
+                            let tableNumber = i + 1;
+                            $("#tableWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + reservations[i].uniqueID + "</h2>");
+                        }
+                    });
+            }
+        
+            function waitlistDisplay(){
+                let URL = window.location.origin;
+                $.ajax({url: currentURL + "/api/reservations", method: "GET"})
+                    .done(function(waitlist) {
+                        console.log("------------------------------------");
+                        console.log("URL: " + currentURL + "/api/reservations");
+                        console.log("------------------------------------");
+                        console.log(waitlist);
+                        console.log("------------------------------------")
+                        for (let i=0; i<waitlist.length; i++){
+                            let waitlistSection = $("<div>");
+                            waitlistSection.addClass('well');
+                            waitlistSection.attr('id', 'waitlistWell-' + i+1)
+                            $('#waitlistContent').append(waitlistSection);
+                            let tableNumber = i + 1;
+                            $("#waitlistWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + waitlist[i].uniqueID + "</h2>");
+                        }
+                    });
+            }
+
+            function clearTable(){
+                let currentURL = window.location.origin;
+                $.ajax({url: currentURL + "/api/clear", method: "POST"})
+        
+            }
+        
+            $("#clear").on('click', function(){
+                alert("Clearing...");
+                clearTable();
+                location.reload();
+            })
+            tableDisplay();
+            waitlistDisplay();
+        </script>
