@@ -51,7 +51,8 @@ app.get("/add", function (req, res) {
 });
 
 app.get("/api/reservations", function (req, res) {
-  return res.json(reservations);
+  var responseObject = {reservations: reservations, waitlist: waitlist};
+  return res.json(responseObject);
 });
 
 app.get("/api/characters/:reservation", function (req, res) {
@@ -72,9 +73,10 @@ app.post("/api/reservations", function (req, res) {
 
   var newReservation = req.body;
 
-  newReservation.uniqueID = newReservation.name.replace(/\s+/g, "").toLowerCase();
+  newReservation.uniqueID = newReservation.uniqueID.replace(/\s+/g, "").toLowerCase();
 
   console.log(newReservation);
+
   if (reservations.length < 5) {
     reservations.push(newReservation);
   }
