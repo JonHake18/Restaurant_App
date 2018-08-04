@@ -10,19 +10,19 @@ app.use(bodyParser.json());
 
 var reservations = [
   {
-    routeName: "hakefamily",
+    uniqueID: "hakefamily",
     name: "Hake Family",
     phoneNumber: "555-692-4372",
     email: "fake-email@gmail.com"
   },
   {
-    routeName: "gigantifamily",
+    uniqueID: "gigantifamily",
     name: "Giganti Family",
     phoneNumber: "555-495-7393",
     email: "fake-email@hotmail.com"
   },
   {
-    routeName: "thomsonfamily",
+    uniqueID: "thomsonfamily",
     name: "Thomson Family",
     phoneNumber: "555-321-9876",
     email: "fake-email@yahoo.com"
@@ -33,8 +33,8 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/add", function(req, res) {
-  res.sendFile(path.join(__dirname, "add.html"));
+app.get("/reserve", function(req, res) {
+  res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
 app.get("/view", function(req, res) {
@@ -51,7 +51,7 @@ app.get("/api/characters/:reservation", function(req, res) {
   console.log(chosen);
 
   for (var i = 0; i < reservations.length; i++) {
-    if (chosen === reservations[i].routeName) {
+    if (chosen === reservations[i].uniqueID) {
       return res.json(reservations[i]);
     }
   }
@@ -63,11 +63,11 @@ app.post("/api/reservations", function(req, res) {
   
   var newReservation = req.body;
 
-  newReservation.routeName = newReservation.name.replace(/\s+/g, "").toLowerCase();
+  newReservation.uniqueID = newReservation.name.replace(/\s+/g, "").toLowerCase();
 
   console.log(newReservation);
 
-  characters.push(newReservation);
+  reservations.push(newReservation);
 
   res.json(newReservation);
 });
